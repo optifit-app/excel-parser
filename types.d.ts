@@ -1,7 +1,5 @@
-export interface Tournament {
+export interface Team {
   name: string;
-  teams: {
-    name: string;
-    color: string;
-  }[];
+  color: string;
+  group: string;
 }

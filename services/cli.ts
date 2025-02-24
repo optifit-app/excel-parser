@@ -2,14 +2,14 @@ import { createInterface } from "readline";
 import { promises as fs } from "fs";
 import iconv from "iconv-lite";
 
-export const getFileContent = async (): Promise<string> => {
-  const rl = createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  });
+const rl = createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
 
-  return new Promise((resolve) => {
-    rl.question("Enter file path: ", async (filePath: string) => {
+export const getFileContent = async (): Promise<string> =>
+  new Promise((resolve) => {
+    rl.question("Chemin du fichier csv : ", async (filePath: string) => {
       rl.close();
 
       try {
@@ -28,4 +28,10 @@ export const getFileContent = async (): Promise<string> => {
       }
     });
   });
-};
+
+export const getFileName = async (): Promise<string> =>
+  new Promise((resolve) => {
+    rl.question("Catégorie (p. ex 'Jun. E') : ", async (name: string) =>
+      resolve(name),
+    );
+  });

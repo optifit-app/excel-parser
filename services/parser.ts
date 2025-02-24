@@ -4,11 +4,12 @@ export const parseTo = <T>(
   parentColumn: string,
   csv: string,
   separator: string,
-): T => {
+): { [key: string]: T } => {
   const [headerLine, ...rows] = csv.trim().split("\n");
   const columns = headerLine.split(separator).map((col) => col.trim());
 
   const parentColumnIndex = columns.indexOf(parentColumn);
+
   if (parentColumnIndex === -1) {
     throw new Error(`Column '${parentColumn}' not found in CSV`);
   }
@@ -45,5 +46,5 @@ export const parseTo = <T>(
     result[parentValue].push(item);
   }
 
-  return result as T;
+  return result as { [key: string]: T };
 };

@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "start": "npx ts-node index.ts"
+    "start": "npx ts-node index.ts",
+    "format": "npx prettier --write ."
   },
   "devDependencies": {
     "@types/node": "^22.13.5",

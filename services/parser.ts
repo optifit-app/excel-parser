@@ -1,12 +1,16 @@
-import {formatRawColor} from "./color";
+import { formatRawColor } from "./color";
 
-export const parseTo = <T>(parentColumn: string, csv: string): T => {
+export const parseTo = <T>(
+  parentColumn: string,
+  csv: string,
+  separator: string,
+): T => {
   const [headerLine, ...rows] = csv.trim().split("\n");
-  const columns = headerLine.split(";").map(col => col.trim());
+  const columns = headerLine.split(separator).map((col) => col.trim());
 
   const parentColumnIndex = columns.indexOf(parentColumn);
   if (parentColumnIndex === -1) {
-    throw new Error(`Column "${parentColumn}" not found in CSV`);
+    throw new Error(`Column '${parentColumn}' not found in CSV`);
   }
 
   const nameIndex = columns.indexOf("Equipe");
@@ -17,10 +21,13 @@ export const parseTo = <T>(parentColumn: string, csv: string): T => {
     throw new Error(`One or more required columns not found in CSV`);
   }
 
-  const result: Record<string, { name: string; color: string; group: string }[]> = {};
+  const result: Record<
+    string,
+    { name: string; color: string; group: string }[]
+  > = {};
 
   for (const row of rows) {
-    const values = row.split(";").map(val => val.trim());
+    const values = row.split(separator).map((val) => val.trim());
     const parentValue = values[parentColumnIndex];
 
     if (!parentValue) continue;
